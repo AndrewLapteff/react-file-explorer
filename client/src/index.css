@@ -40,16 +40,16 @@ button {
   border: 1px solid transparent;
   font-size: 1em;
   font-family: inherit;
-  background-color: #1a1a1ab9;
   cursor: pointer;
-  transition: border-color 0.25s;
 }
 button:hover {
   border-color: #646cff;
 }
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline-color: #535bf2;
+  outline-width: 1px;
+  outline-style: solid;
 }
 
 @media (prefers-color-scheme: light) {
@@ -63,4 +63,14 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+.folder {
+  background-color: #1a1a1ae9;
+  margin-top: 0.5px;
+  margin-bottom: 0.5px;
+}
+.file {
+  background-color: #1a1a1a5f;
+  margin-top: 0.5px;
+  margin-bottom: 0.5px;
 }

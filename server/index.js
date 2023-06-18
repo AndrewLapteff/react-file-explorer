@@ -11,7 +11,7 @@ function buildDirectoryTree(rootDir) {
     const files = fs.readdirSync(currentDir) // Отримання списку файлів і папок в поточній директорії
 
     files.forEach(file => {
-      if (file == 'node_modules') return // node_modules занадто велика директорія
+      if (file == 'node_modules' || file == '.git') return // node_modules занадто велика директорія
       const filePath = path.join(currentDir, file) // Формування повного шляху до файлу або папки
       const stats = fs.statSync(filePath) // Отримання статистики про файл або папку
 
@@ -20,7 +20,8 @@ function buildDirectoryTree(rootDir) {
         currentTree[file] = subTree // Додавання піддерева до поточної папки в дереві
         traverseDirectory(filePath, subTree) // Рекурсивний виклик для піддиректорій
       } else {
-        currentTree[file] = '' // Додати файл до поточної папки
+        const fileContent = fs.readFileSync(filePath, 'utf-8') // Зчитування вмісту файлу
+        currentTree[file] = fileContent // Запис вмісту
       }
     })
   }

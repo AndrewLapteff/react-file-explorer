@@ -6,9 +6,16 @@ const Directory = ({ fileName, files, margin }) => {
   const [isExpanded, setExpanded] = useState(true)
   return (
     <div style={{ marginLeft: margin }} key={fileName}>
-      <button onClick={() => setExpanded(!isExpanded)}>{fileName}</button >
+      <button className='folder' onClick={() => setExpanded(!isExpanded)}>
+        {fileName}</button >
       {!isExpanded && <FilesTraversal files={files[fileName]} margin={margin} />}
     </div>)
+}
+
+const File = ({ fileName, fileContent, margin }) => {
+  return <div style={{ marginLeft: margin + 7 }}>
+    <button className='file' onClick={() => console.log(fileContent)}>{fileName}</button>
+  </div>
 }
 
 const FilesTraversal = ({ files, margin }) => {
@@ -25,10 +32,12 @@ const FilesTraversal = ({ files, margin }) => {
       // якщо ж значення властивості це строка, то це просто файл
     } else if (typeof files[fileName] === 'string') {
       return (
-        <div style={{ marginLeft: margin + 7 }} key={fileName}>
-          <span>{fileName}</span>
-          <span>{files[fileName]}</span>
-        </div>
+        <File
+          key={fileName}
+          fileName={fileName}
+          fileContent={files[fileName]}
+          margin={margin}
+        />
       )
     }
   })
@@ -46,7 +55,9 @@ function App() {
   }, [])
 
   if (files)
-    return <FilesTraversal files={files} margin={5} />
+    return (
+      <FilesTraversal files={files} margin={7} />
+    )
 }
 
 export default App
@@ -54,5 +65,10 @@ export default App
 Directory.propTypes = {
   fileName: PropTypes.string,
   files: PropTypes.object,
+  margin: PropTypes.number
+}
+File.propTypes = {
+  fileName: PropTypes.string,
+  fileContent: PropTypes.string,
   margin: PropTypes.number
 }
